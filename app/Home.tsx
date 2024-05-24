@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, ImageBackground, Image } from 'react-native';
 
-
 const HeroDetail = () => {
     const heroDetail = {
         id: 0,
@@ -24,7 +23,6 @@ const HeroDetail = () => {
 };
 
 const HeroStats = () => {
-
     const heroStats = {
         id: 1,
         name: "npc_dota_hero_antimage",
@@ -56,31 +54,11 @@ const HeroStats = () => {
         cm_enabled: true,
         legs: 2,
         hero_id: 1,
-        turbo_picks: 1000,
-        turbo_wins: 800,
-        pro_ban: 500,
-        pro_win: 300,
-        pro_pick: 400,
-        "1_pick": 100,
-        "1_win": 80,
-        "2_pick": 200,
-        "2_win": 150,
-        "3_pick": 300,
-        "3_win": 200,
-        "4_pick": 400,
-        "4_win": 250,
-        "5_pick": 500,
-        "5_win": 300,
-        "6_pick": 600,
-        "6_win": 350,
-        "7_pick": 700,
-        "7_win": 400,
-        "8_pick": 800,
-        "8_win": 450
     };
-
+    const antiMageImage = require('./image/anti.jpg');
     return (
         <View style={styles.heroDetailContainer}>
+            <Image source={antiMageImage} style={styles.heroImage} />
             <Text style={styles.heroName}>{heroStats.localized_name} Stats</Text>
             <Text style={styles.heroAttribute}>Primary Attribute: {heroStats.primary_attr}</Text>
             <Text style={styles.heroAttackType}>Attack Type: {heroStats.attack_type}</Text>
@@ -107,9 +85,9 @@ const HeroStats = () => {
     );
 };
 
-
 const App = () => {
     const [showStats, setShowStats] = useState(false);
+    const [showHeroDetail, setShowHeroDetail] = useState(true);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -117,11 +95,13 @@ const App = () => {
             <ImageBackground source={require('./image/bg.jpg')} style={styles.background}>
                 <SafeAreaView style={styles.container1}>
                     <View style={styles.innerContainer}>
-                        <HeroDetail />
-                        { }
+                        {showHeroDetail && <HeroDetail />}
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => setShowStats(!showStats)}
+                            onPress={() => {
+                                setShowStats(!showStats);
+                                setShowHeroDetail(!showHeroDetail); 
+                            }}
                         >
                             <Text style={styles.buttonText}>{showStats ? 'Hide Stats' : 'Show Stats'}</Text>
                         </TouchableOpacity>
@@ -139,18 +119,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-
     },
     container1: {
-        marginTop: 200,
-        alignItems: 'center'
-
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        alignItems: 'center',
     },
     background: {
         flex: 1,
         width: '100%',
         height: 'auto',
-
     },
     innerContainer: {
         marginBottom: 40,
@@ -260,21 +238,8 @@ const styles = StyleSheet.create({
     },
     heroCmEnabled: {
         fontSize: 16,
-    },
-    heroTurboPicks: {
-        fontSize: 16,
-    },
-    heroTurboWins: {
-        fontSize: 16,
-    },
-    heroProBan: {
-        fontSize: 16,
-    },
-    heroProWin: {
-        fontSize: 16,
-    },
-    heroProPick: {
-        fontSize: 16,
+    
+   
     },
     heroImage: {
         width: 150,
