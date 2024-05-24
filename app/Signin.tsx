@@ -1,0 +1,286 @@
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, ImageBackground, Image } from 'react-native';
+
+
+const HeroDetail = () => {
+    const heroDetail = {
+        id: 0,
+        name: "npc_dota_hero_antimage",
+        localized_name: "Anti-Mage",
+        primary_attr: "Agility",
+        attack_type: "Melee",
+    };
+
+    const antiMageImage = require('./image/anti.jpg');
+
+    return (
+        <View style={styles.heroDetailContainer}>
+            <Image source={antiMageImage} style={styles.heroImage} />
+            <Text style={styles.heroName}>{heroDetail.localized_name}</Text>
+            <Text style={styles.heroAttribute}>Primary Attribute: {heroDetail.primary_attr}</Text>
+            <Text style={styles.heroAttackType}>Attack Type: {heroDetail.attack_type}</Text>
+        </View>
+    );
+};
+
+const HeroStats = () => {
+
+    const heroStats = {
+        id: 1,
+        name: "npc_dota_hero_antimage",
+        localized_name: "Anti-Mage",
+        primary_attr: "Agility",
+        attack_type: "Melee",
+        roles: ["Carry", "Escape"],
+        base_health: 2000,
+        base_health_regen: 2.5,
+        base_mana: 1000,
+        base_mana_regen: 1.5,
+        base_armor: 5,
+        base_mr: 25,
+        base_attack_min: 29,
+        base_attack_max: 33,
+        base_str: 23,
+        base_agi: 24,
+        base_int: 12,
+        str_gain: 1.3,
+        agi_gain: 3.2,
+        int_gain: 1.8,
+        attack_range: 150,
+        projectile_speed: 0,
+        attack_rate: 1.4,
+        base_attack_time: 1.45,
+        attack_point: 0.3,
+        move_speed: 310,
+        turn_rate: 0.5,
+        cm_enabled: true,
+        legs: 2,
+        hero_id: 1,
+        turbo_picks: 1000,
+        turbo_wins: 800,
+        pro_ban: 500,
+        pro_win: 300,
+        pro_pick: 400,
+        "1_pick": 100,
+        "1_win": 80,
+        "2_pick": 200,
+        "2_win": 150,
+        "3_pick": 300,
+        "3_win": 200,
+        "4_pick": 400,
+        "4_win": 250,
+        "5_pick": 500,
+        "5_win": 300,
+        "6_pick": 600,
+        "6_win": 350,
+        "7_pick": 700,
+        "7_win": 400,
+        "8_pick": 800,
+        "8_win": 450
+    };
+
+    return (
+        <View style={styles.heroDetailContainer}>
+            <Text style={styles.heroName}>{heroStats.localized_name} Stats</Text>
+            <Text style={styles.heroAttribute}>Primary Attribute: {heroStats.primary_attr}</Text>
+            <Text style={styles.heroAttackType}>Attack Type: {heroStats.attack_type}</Text>
+            <Text style={styles.heroRoles}>Roles: {heroStats.roles.join(", ")}</Text>
+            <Text style={styles.heroBaseHealth}>Base Health: {heroStats.base_health}</Text>
+            <Text style={styles.heroHealthRegen}>Base Health Regen: {heroStats.base_health_regen}</Text>
+            <Text style={styles.heroBaseMana}>Base Mana: {heroStats.base_mana}</Text>
+            <Text style={styles.heroManaRegen}>Base Mana Regen: {heroStats.base_mana_regen}</Text>
+            <Text style={styles.heroBaseArmor}>Base Armor: {heroStats.base_armor}</Text>
+            <Text style={styles.heroMagicResistance}>Base Magic Resistance: {heroStats.base_mr}%</Text>
+            <Text style={styles.heroAttackDamage}>Base Attack Damage: {heroStats.base_attack_min} - {heroStats.base_attack_max}</Text>
+            <Text style={styles.heroStrength}>Base Strength: {heroStats.base_str}</Text>
+            <Text style={styles.heroAgility}>Base Agility: {heroStats.base_agi}</Text>
+            <Text style={styles.heroIntelligence}>Base Intelligence: {heroStats.base_int}</Text>
+            <Text style={styles.heroAttackRange}>Attack Range: {heroStats.attack_range}</Text>
+            <Text style={styles.heroProjectileSpeed}>Projectile Speed: {heroStats.projectile_speed}</Text>
+            <Text style={styles.heroAttackRate}>Attack Rate: {heroStats.attack_rate}</Text>
+            <Text style={styles.heroBaseAttackTime}>Base Attack Time: {heroStats.base_attack_time}</Text>
+            <Text style={styles.heroAttackPoint}>Attack Point: {heroStats.attack_point}</Text>
+            <Text style={styles.heroMovementSpeed}>Movement Speed: {heroStats.move_speed}</Text>
+            <Text style={styles.heroTurnRate}>Turn Rate: {heroStats.turn_rate}</Text>
+            <Text style={styles.heroLegs}>Legs: {heroStats.legs}</Text>
+        </View>
+    );
+};
+
+
+const App = () => {
+    const [showStats, setShowStats] = useState(false);
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <StatusBar backgroundColor="skyblue" barStyle="light-content" />
+            <ImageBackground source={require('./image/bg.jpg')} style={styles.background}>
+                <SafeAreaView style={styles.container1}>
+                    <View style={styles.innerContainer}>
+                        <HeroDetail />
+                        { }
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => setShowStats(!showStats)}
+                        >
+                            <Text style={styles.buttonText}>{showStats ? 'Hide Stats' : 'Show Stats'}</Text>
+                        </TouchableOpacity>
+                        {showStats && <HeroStats />}
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>
+        </SafeAreaView>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+
+    },
+    container1: {
+        marginTop: 200,
+        alignItems: 'center'
+
+    },
+    background: {
+        flex: 1,
+        width: '100%',
+        height: 'auto',
+
+    },
+    innerContainer: {
+        marginBottom: 40,
+        width: '80%',
+        maxWidth: 300,
+        backgroundColor: 'rgba(240, 248, 255, 0.8)',
+        padding: 20,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+    },
+    button: {
+        height: 40,
+        width: '100%',
+        backgroundColor: '#007BFF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        marginTop: 10,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    heroDetailContainer: {
+        marginTop: 20,
+    },
+    heroName: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    heroAttribute: {
+        fontSize: 16,
+    },
+    heroAttackType: {
+        fontSize: 16,
+    },
+    heroRoles: {
+        fontSize: 16,
+    },
+    heroBaseHealth: {
+        fontSize: 16,
+    },
+    heroHealthRegen: {
+        fontSize: 16,
+    },
+    heroBaseMana: {
+        fontSize: 16,
+    },
+    heroManaRegen: {
+        fontSize: 16,
+    },
+    heroBaseArmor: {
+        fontSize: 16,
+    },
+    heroMagicResistance: {
+        fontSize: 16,
+    },
+    heroAttackDamage: {
+        fontSize: 16,
+    },
+    heroStrength: {
+        fontSize: 16,
+    },
+    heroAgility: {
+        fontSize: 16,
+    },
+    heroIntelligence: {
+        fontSize: 16,
+    },
+    heroAttackRange: {
+        fontSize: 16,
+    },
+    heroProjectileSpeed: {
+        fontSize: 16,
+    },
+    heroAttackRate: {
+        fontSize: 16,
+    },
+    heroBaseAttackTime: {
+        fontSize: 16,
+    },
+    heroAttackPoint: {
+        fontSize: 16,
+    },
+    heroMovementSpeed: {
+        fontSize: 16,
+    },
+    heroTurnRate: {
+        fontSize: 16,
+    },
+    heroLegs: {
+        fontSize: 16,
+    },
+    heroDayVision: {
+        fontSize: 16,
+    },
+    heroNightVision: {
+        fontSize: 16,
+    },
+    heroCmEnabled: {
+        fontSize: 16,
+    },
+    heroTurboPicks: {
+        fontSize: 16,
+    },
+    heroTurboWins: {
+        fontSize: 16,
+    },
+    heroProBan: {
+        fontSize: 16,
+    },
+    heroProWin: {
+        fontSize: 16,
+    },
+    heroProPick: {
+        fontSize: 16,
+    },
+    heroImage: {
+        width: 150,
+        height: 150,
+        marginRight: 10,
+    },
+});
+
+export default App;
