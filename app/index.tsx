@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, } from "react-native";
-import App from "./Signin";
+import App from "./Home";
 
 
 export default function Index() {
