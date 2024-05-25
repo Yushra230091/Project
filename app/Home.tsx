@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { Video } from 'expo-av';
 
 const HeroDetail = () => {
     const heroDetail = {
@@ -88,11 +89,36 @@ const HeroStats = () => {
 const App = () => {
     const [showStats, setShowStats] = useState(false);
     const [showHeroDetail, setShowHeroDetail] = useState(true);
+    const videoRef = useRef<Video>(null); // Ref for the video component
+
+    // Autoplay the video when the component mounts
+    useEffect(() => {
+        const playVideoAsync = async () => {
+            try {
+                if (videoRef.current) {
+                    await videoRef.current.playAsync(); // Play the video
+                }
+            } catch (error) {
+                console.error("Error playing video:", error);
+            }
+        };
+        playVideoAsync();
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor="skyblue" barStyle="light-content" />
             <ImageBackground source={require('./image/bg.jpg')} style={styles.background}>
+                {/* Video Introduction */}
+                <Video
+                    ref={videoRef}
+                    source={require('./image/intro.mp4')}
+                    style={styles.backgroundVideo}
+                    shouldPlay
+                    isLooping
+                    onError={(error) => console.error("Error loading video:", error)}
+                />
+                {/* Rest of your components */}
                 <SafeAreaView style={styles.container1}>
                     <View style={styles.innerContainer}>
                         {showHeroDetail && <HeroDetail />}
@@ -100,7 +126,7 @@ const App = () => {
                             style={styles.button}
                             onPress={() => {
                                 setShowStats(!showStats);
-                                setShowHeroDetail(!showHeroDetail); 
+                                setShowHeroDetail(!showHeroDetail);
                             }}
                         >
                             <Text style={styles.buttonText}>{showStats ? 'Hide Stats' : 'Show Stats'}</Text>
@@ -114,6 +140,13 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+    },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -238,8 +271,6 @@ const styles = StyleSheet.create({
     },
     heroCmEnabled: {
         fontSize: 16,
-    
-   
     },
     heroImage: {
         width: 150,
